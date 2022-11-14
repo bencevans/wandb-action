@@ -56,7 +56,11 @@ def format_pr_message(
     """
     Formats a PR message given two wandb runs
     """
-    keys = sorted(set(prev_run.summary.keys()).union(set(curr_run.summary.keys())))
+    keys = sorted(
+        set(prev_run.summary.keys() if prev_run else []).union(
+            set(curr_run.summary.keys())
+        )
+    )
 
     message = [
         "# WandB Summary",
@@ -95,12 +99,16 @@ if __name__ == "__main__":
     prev_ref = os.environ["GITHUB_BASE_REF"]
 
     is_pull_request = os.environ["GITHUB_EVENT_NAME"] == "pull_request"
-    pull_request_id = int(os.environ["GITHUB_REF"].split("/")[-2]) if is_pull_request else None
+    pull_request_id = (
+        int(os.environ["GITHUB_REF"].split("/")[-2]) if is_pull_request else None
+    )
 
-    print({
-        'is_pull_request': is_pull_request,
-        'pull_request_id': pull_request_id,
-    })
+    print(
+        {
+            "is_pull_request": is_pull_request,
+            "pull_request_id": pull_request_id,
+        }
+    )
 
     wandb_entity = (
         os.environ["WANDB_ENTITY"]
@@ -132,9 +140,11 @@ if __name__ == "__main__":
         # TODO: Comment on PR rather than commit
         print(
             "✍️ Written pull request comment: ",
-            github_api_repo.get_pull(pull_request_id).create_issue_comment(
+            github_api_repo.get_pull(pull_request_id)
+            .create_issue_comment(
                 format_pr_message(prev_run, prev_ref, curr_run, curr_ref)
-            ).html_url,
+            )
+            .html_url,
         )
     else:
         print(
