@@ -129,14 +129,12 @@ if __name__ == "__main__":
     if is_pull_request:
         prev_run = get_run(wandb_api, wandb_path, prev_ref)
 
-        pull_request_id = 
-
         # TODO: Comment on PR rather than commit
         print(
             "✍️ Written pull request comment: ",
-            github_api_repo.get_commit(curr_ref)
-            .create_comment(format_pr_message(prev_run, prev_ref, curr_run, curr_ref))
-            .html_url,
+            github_api_repo.get_pull(pull_request_id).create_issue_comment(
+                format_pr_message(prev_run, prev_ref, curr_run, curr_ref)
+            ).html_url,
         )
     else:
         print(
