@@ -6,15 +6,21 @@ import os
 wandb.login()
 api = wandb.Api()
 
+ref_current = os.environ["GITHUB_SHA"]
+ref_previous = os.environ["GITHUB_BASE_REF"]
+
+print("Current ref: ", ref_current)
+print("Previous ref: ", ref_previous)
+
 runs_current = api.runs(
     path="bencevans/wandb-action",
-    filters={"commit": os.environ["GITHUB_SHA"]},
+    filters={"commit": ref_current},
 )
 run_current = runs_current[0] if len(runs_current) > 0 else None
 
 runs_previous = api.runs(
     path="bencevans/wandb-action",
-    filters={"commit": os.environ["GITHUB_SHA"]},
+    filters={"commit": ref_previous},
 )
 run_previous = runs_previous[0] if len(runs_previous) > 0 else None
 
