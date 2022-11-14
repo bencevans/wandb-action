@@ -2,9 +2,12 @@ import os
 import wandb
 import random
 import os
+from github import Github
 
 wandb.login()
 api = wandb.Api()
+
+github = Github(os.environ['GITHUB_TOKEN'])
 
 ref_current = os.environ["GITHUB_SHA"]
 ref_previous = os.environ["GITHUB_BASE_REF"]
@@ -38,6 +41,12 @@ if run_current is not None:
 if run_previous is not None:
     for key in run_previous.summary.keys():
         all_keys.add(key)
+
+github_commit = github.get_repo("bencevans/wandb-action").get_commit(ref_current)
+
+github_commit.create_comment(
+    "Run: https://app.wandb.ai/bencevans/wandb-action/runs/{}".format(run_current.id)
+)
 
 print("Key | Previous | Current")
 print("--- | --- | ---")
