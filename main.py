@@ -37,7 +37,7 @@ def format_commit_message(run: wandb.apis.public.Run) -> str:
     """.format(
         "\n".join(
             [
-                f"{key} | {run_current.summary[key]}"
+                f"{key} | {run.summary[key]}"
                 for key in sorted(run.summary.keys())
             ]
         ),
@@ -83,6 +83,8 @@ if __name__ == "__main__":
 
     ref_current = os.environ["GITHUB_SHA"]
     ref_previous = os.environ["GITHUB_BASE_REF"]
+
+    is_pull_request = os.environ["GITHUB_EVENT_NAME"] == "pull_request"
 
     wandb_entity = (
         os.environ["WANDB_ENTITY"]
