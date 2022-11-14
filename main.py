@@ -1,3 +1,7 @@
+"""
+GitHub Action for reporting Weights & Biases metrics.
+"""
+
 import os
 import wandb
 import random
@@ -5,7 +9,7 @@ import os
 from github import Github
 
 
-def get_run(api: wandb.Api, path: str, sha: str) -> wandb.apis.public.Run:
+def get_run(api: wandb.Api, wandb_path: str, sha: str) -> wandb.apis.public.Run:
     """
     Retrieves a run from wandb given a path and commit sha
     """
