@@ -2,7 +2,7 @@ FROM python:3-slim AS builder
 ADD . /app
 WORKDIR /app
 
-RUN pip install
+RUN pip install wandb
 
 FROM gcr.io/distroless/python3-debian10
 COPY --from=builder /app /app
