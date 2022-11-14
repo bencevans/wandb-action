@@ -86,12 +86,12 @@ if __name__ == "__main__":
 
     wandb_entity = (
         os.environ["WANDB_ENTITY"]
-        if "WANDB_ENTITY" in os.environ
+        if "WANDB_ENTITY" in os.environ and os.environ["WANDB_ENTITY"] != ""
         else os.environ["GITHUB_REPOSITORY"].split("/")[0]
     )
     wandb_project = (
         os.environ["WANDB_PROJECT"]
-        if "WANDB_PROJECT" in os.environ
+        if "WANDB_PROJECT" in os.environ and os.environ["WANDB_PROJECT"] != ""
         else os.environ["GITHUB_REPOSITORY"].split("/")[1]
     )
     wandb_path = wandb_entity + "/" + wandb_project
