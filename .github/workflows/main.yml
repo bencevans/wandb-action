@@ -17,11 +17,9 @@ jobs:
           WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
           WANDB_PROJECT: ${{ secrets.WANDB_PROJECT }}
           WANDB_ENTITY: ${{ secrets.WANDB_ENTITY }}
-      - name: Install dependencies
-        run: npm install
-      - name: Hello world action step
+      - name: Report WandB Results
         uses: ./ # Uses an action in the root directory
-        id: hello
+        id: wandb
         env:
           WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
           WANDB_PROJECT: ${{ secrets.WANDB_PROJECT }}
