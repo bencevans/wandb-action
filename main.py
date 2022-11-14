@@ -5,6 +5,7 @@ GitHub Action for reporting Weights & Biases metrics.
 import os
 import sys
 from typing import Optional
+import subprocess
 from github import Github
 import wandb
 
@@ -98,15 +99,29 @@ if __name__ == "__main__":
     curr_ref = os.environ["GITHUB_SHA"]
     prev_ref = os.environ["GITHUB_BASE_REF"]
 
+    print(f"Current ref: {curr_ref}")
+    print(f"Previous ref: {prev_ref}")
+
     is_pull_request = os.environ["GITHUB_EVENT_NAME"] == "pull_request"
     pull_request_id = (
         int(os.environ["GITHUB_REF"].split("/")[-2]) if is_pull_request else None
     )
 
+    if is_pull_request:
+        prev_ref = subprocess.run(
+            ["git", "rev-parse", "--verify", f"origin/{prev_ref}"],
+            check=True,
+            text=True,
+            capture_output=True,
+            cwd=os.environ["GITHUB_WORKSPACE"],
+        ).stdout.strip()
+
     print(
         {
             "is_pull_request": is_pull_request,
             "pull_request_id": pull_request_id,
+            "curr_ref": curr_ref,
+            "prev_ref": prev_ref,
         }
     )
 
