@@ -10,11 +10,11 @@ def get_run(api: wandb.Api, path: str, sha: str) -> wandb.apis.public.Run:
     Retrieves a run from wandb given a path and commit sha
     """
 
-    api.runs(
+    runs = api.runs(
         path=wandb_path,
         filters={"commit": ref_current},
     )
-    run_current = runs_current[0] if len(runs_current) > 0 else None
+    return runs[0] if len(runs) > 0 else None
 
 
 def format_commit_message(run: wandb.apis.public.Run) -> str:
