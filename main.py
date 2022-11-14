@@ -4,6 +4,7 @@ GitHub Action for reporting Weights & Biases metrics.
 
 import os
 import sys
+import json
 from typing import Optional
 import subprocess
 from github import Github
@@ -108,11 +109,8 @@ if __name__ == "__main__":
     )
 
     if is_pull_request:
-        import json
-
         with open(os.environ["GITHUB_EVENT_PATH"]) as f:
-            event = json.load(f)
-        print(event)
+            prev_ref = json.load(f)["pull_request"]["base"]["sha"]
 
     print(
         {
