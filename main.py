@@ -108,13 +108,11 @@ if __name__ == "__main__":
     )
 
     if is_pull_request:
-        prev_ref = subprocess.run(
-            ["git", "rev-parse", "--verify", f"origin/{prev_ref}"],
-            check=True,
-            text=True,
-            capture_output=True,
-            cwd=os.environ["GITHUB_WORKSPACE"],
-        ).stdout.strip()
+        import json
+
+        with open(os.environ["GITHUB_EVENT_PATH"]) as f:
+            event = json.load(f)
+        print(event)
 
     print(
         {
