@@ -44,13 +44,12 @@ if run_previous is not None:
 
 github_commit = github.get_repo("bencevans/wandb-action").get_commit(ref_current)
 
-github_commit.create_comment(
+comment = github_commit.create_comment(
     """
 # Summary
 
 Metric | Result
 ------ | ------
-
 {}
 
 {}
@@ -60,17 +59,19 @@ Metric | Result
     )
 )
 
-print("Key | Previous | Current")
-print("--- | --- | ---")
-for key in sorted(list(all_keys)):
-    previous = (
-        run_previous.summary[key]
-        if run_previous is not None and key in run_previous.summary
-        else ""
-    )
-    current = (
-        run_current.summary[key]
-        if run_current is not None and key in run_current.summary
-        else ""
-    )
-    print(f"{key} | {previous} | {current}")
+print("✍️ Written commit comment: ", comment.html_url)
+
+# print("Key | Previous | Current")
+# print("--- | --- | ---")
+# for key in sorted(list(all_keys)):
+#     previous = (
+#         run_previous.summary[key]
+#         if run_previous is not None and key in run_previous.summary
+#         else ""
+#     )
+#     current = (
+#         run_current.summary[key]
+#         if run_current is not None and key in run_current.summary
+#         else ""
+#     )
+#     print(f"{key} | {previous} | {current}")
