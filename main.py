@@ -13,7 +13,7 @@ import wandb
 
 def get_run(api: wandb.Api, path: str, sha: str) -> wandb.apis.public.Run:
     """
-    Retrieves a run from wandb given a path and commit sha
+    Retrieves a run from W&B given a path and commit sha
     """
 
     runs = api.runs(
@@ -25,12 +25,12 @@ def get_run(api: wandb.Api, path: str, sha: str) -> wandb.apis.public.Run:
 
 def format_commit_message(run: wandb.apis.public.Run) -> str:
     """
-    Formats a commit message given a wandb run
+    Formats a commit message given a W&B run
     """
 
     return "\n".join(
         [
-            "# WandB Summary",
+            "# W&B Summary",
             "",
             "Metric | Value",
             "------ | -----",
@@ -43,7 +43,7 @@ def format_commit_message(run: wandb.apis.public.Run) -> str:
                 ),
             ),
             "",
-            f"- [Open on WandB]({run.url})",
+            f"- [Open on W&B]({run.url})",
             "",
         ]
     )
@@ -56,7 +56,7 @@ def format_pr_message(
     curr_ref: str,
 ) -> str:
     """
-    Formats a PR message given two wandb runs
+    Formats a PR message given two W&B runs
     """
     keys = sorted(
         set(prev_run.summary.keys() if prev_run else []).union(
@@ -65,7 +65,7 @@ def format_pr_message(
     )
 
     message = [
-        "# WandB Summary",
+        "# W&B Summary",
         "",
         f"{prev_ref}...{curr_ref}",
         "",
@@ -84,8 +84,8 @@ def format_pr_message(
 
     message.append("")
     if prev_run is not None:
-        message.append(f"- [Open Previous on WandB]({prev_run.url})")
-    message.append(f"- [Open Current on WandB]({curr_run.url})")
+        message.append(f"- [Open Previous on W&B]({prev_run.url})")
+    message.append(f"- [Open Current on W&B]({curr_run.url})")
     message.append("")
     return "\n".join(message)
 
