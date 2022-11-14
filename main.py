@@ -100,9 +100,6 @@ if __name__ == "__main__":
     curr_ref = os.environ["GITHUB_SHA"]
     prev_ref = os.environ["GITHUB_BASE_REF"]
 
-    print(f"Current ref: {curr_ref}")
-    print(f"Previous ref: {prev_ref}")
-
     is_pull_request = os.environ["GITHUB_EVENT_NAME"] == "pull_request"
     pull_request_id = (
         int(os.environ["GITHUB_REF"].split("/")[-2]) if is_pull_request else None
@@ -111,15 +108,6 @@ if __name__ == "__main__":
     if is_pull_request:
         with open(os.environ["GITHUB_EVENT_PATH"]) as f:
             prev_ref = json.load(f)["pull_request"]["base"]["sha"]
-
-    print(
-        {
-            "is_pull_request": is_pull_request,
-            "pull_request_id": pull_request_id,
-            "curr_ref": curr_ref,
-            "prev_ref": prev_ref,
-        }
-    )
 
     wandb_entity = (
         os.environ["WANDB_ENTITY"]
