@@ -7,7 +7,7 @@ from github import Github
 wandb.login()
 api = wandb.Api()
 
-github = Github(os.environ['GITHUB_TOKEN'])
+github = Github(os.environ["GITHUB_TOKEN"])
 
 ref_current = os.environ["GITHUB_SHA"]
 ref_previous = os.environ["GITHUB_BASE_REF"]
@@ -45,12 +45,33 @@ if run_previous is not None:
 github_commit = github.get_repo("bencevans/wandb-action").get_commit(ref_current)
 
 github_commit.create_comment(
-    "Run: https://app.wandb.ai/bencevans/wandb-action/runs/{}".format(run_current.id)
+    """
+# Summary
+
+| Metric | Result
+
+| --- | --- | --- |
+
+{}
+
+{}
+""".format(
+        " | ".join([f"{key} | {run_current.summary[key]}" for key in all_keys]),
+        "https://app.wandb.ai/bencevans/wandb-action/runs/{}".format(run_current.id),
+    )
 )
 
 print("Key | Previous | Current")
 print("--- | --- | ---")
 for key in sorted(list(all_keys)):
-    previous = run_previous.summary[key] if run_previous is not None and key in run_previous.summary else ""
-    current = run_current.summary[key] if run_current is not None and key in run_current.summary else ""
+    previous = (
+        run_previous.summary[key]
+        if run_previous is not None and key in run_previous.summary
+        else ""
+    )
+    current = (
+        run_current.summary[key]
+        if run_current is not None and key in run_current.summary
+        else ""
+    )
     print(f"{key} | {previous} | {current}")
