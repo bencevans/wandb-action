@@ -3,6 +3,7 @@ import wandb
 import random
 import os
 
+wandb.login()
 api = wandb.Api()
 
 runs_current = api.runs(

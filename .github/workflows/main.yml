@@ -24,6 +24,3 @@ jobs:
           WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
           WANDB_PROJECT: ${{ secrets.WANDB_PROJECT }}
           WANDB_ENTITY: ${{ secrets.WANDB_ENTITY }}
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
