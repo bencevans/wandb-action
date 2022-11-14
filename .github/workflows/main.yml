@@ -9,13 +9,17 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Install wandb from pypi
+        run: pip install wandb
+      - name: Run gen_run.py
+        run: python gen_run.py
       - name: Install dependencies
         run: npm install
       - name: Hello world action step
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
-          api_key: "Hello World"
+          api_key: ${{ secrets.WANDB_API_KEY }}
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
