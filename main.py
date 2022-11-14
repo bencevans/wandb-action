@@ -112,15 +112,6 @@ if __name__ == "__main__":
     if runs_previous is None:
         print(f"⚠️ No run found for previous ref {ref_previous}")
 
-    all_keys = set()
-    if run_current is not None:
-        for key in run_current.summary.keys():
-            all_keys.add(key)
-
-    if run_previous is not None:
-        for key in run_previous.summary.keys():
-            all_keys.add(key)
-
     print(
         "✍️ Written commit comment: ",
         github_api_repo.get_commit(ref_current)
