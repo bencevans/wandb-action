@@ -95,6 +95,12 @@ if __name__ == "__main__":
     prev_ref = os.environ["GITHUB_BASE_REF"]
 
     is_pull_request = os.environ["GITHUB_EVENT_NAME"] == "pull_request"
+    pull_request_id = int(os.environ["GITHUB_REF"].split("/")[-2]) if is_pull_request else None
+
+    print({
+        'is_pull_request': is_pull_request,
+        'pull_request_id': pull_request_id,
+    })
 
     wandb_entity = (
         os.environ["WANDB_ENTITY"]
@@ -122,6 +128,8 @@ if __name__ == "__main__":
 
     if is_pull_request:
         prev_run = get_run(wandb_api, wandb_path, prev_ref)
+
+        pull_request_id = 
 
         # TODO: Comment on PR rather than commit
         print(
