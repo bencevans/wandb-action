@@ -12,7 +12,7 @@ def get_run(api: wandb.Api, path: str, sha: str) -> wandb.apis.public.Run:
 
     runs = api.runs(
         path=wandb_path,
-        filters={"commit": ref_current},
+        filters={"commit": sha},
     )
     return runs[0] if len(runs) > 0 else None
 
