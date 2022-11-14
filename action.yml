@@ -1,5 +1,11 @@
-name: 'WandB PR Bot'
-description: 'Report WandB Results on PRs'
+name: Report WandB Run Results
+
+description: Reports the results of Weights and Biases runs to Pull Requests and Commits.
+
+branding:
+  icon: bar-chart-2
+  color: yellow
+
 runs:
   using: "docker"
   image: "Dockerfile"
