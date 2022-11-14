@@ -13,6 +13,10 @@ jobs:
         run: pip install wandb
       - name: Run gen_run.py
         run: python gen_run.py
+        env:
+          WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+          WANDB_PROJECT: ${{ secrets.WANDB_PROJECT }}
+          WANDB_ENTITY: ${{ secrets.WANDB_ENTITY }}
       - name: Install dependencies
         run: npm install
       - name: Hello world action step
