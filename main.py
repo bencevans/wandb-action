@@ -96,7 +96,7 @@ if __name__ == "__main__":
     print("Previous ref: ", ref_previous)
 
     github_api = Github(github_token)
-    github_api_repo = github.get_repo(github_repo)
+    github_api_repo = github_api.get_repo(github_repo)
 
     runs_current = get_run(wandb_api, wandb_path, ref_current)
     runs_previous = get_run(wandb_api, wandb_path, ref_previous)
