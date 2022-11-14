@@ -48,15 +48,14 @@ github_commit.create_comment(
     """
 # Summary
 
-| Metric | Result
-
-| --- | --- | --- |
+Metric | Result
+------ | ------
 
 {}
 
 {}
 """.format(
-        " | ".join([f"{key} | {run_current.summary[key]}" for key in all_keys]),
+        "\n".join([f"{key} | {run_current.summary[key]}" for key in all_keys]),
         "https://app.wandb.ai/bencevans/wandb-action/runs/{}".format(run_current.id),
     )
 )
