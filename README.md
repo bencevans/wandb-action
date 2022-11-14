@@ -1,6 +1,6 @@
 # wandb-action
 
-This action leaves comments on pull requests and commits with Weights & Biases run summaries and comparisons.
+This action leaves comments on pull requests and commits with [Weights & Biases](https://wandb.ai) run summaries and comparisons.
 
 ## Environment Variables
 
