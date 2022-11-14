@@ -42,4 +42,6 @@ if run_previous is not None:
 print("Key | Previous | Current")
 print("--- | --- | ---")
 for key in sorted(list(all_keys)):
-    print(f"{key} | {run_previous.summary[key]} | {run_current.summary[key]}")
+    previous = run_previous.summary[key] if run_previous is not None and key in run_previous.summary else ""
+    current = run_current.summary[key] if run_current is not None and key in run_current.summary else ""
+    print(f"{key} | {previous} | {current}")
