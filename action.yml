@@ -1,12 +1,5 @@
 name: 'WandB PR Bot'
 description: 'Report WandB Results on PRs'
-inputs:
-  api_key:
-    description: 'WandB API Key'
-    required: true
-#outputs:
-#  time: # id of output
-#    description: 'The time we greeted you'
 runs:
   using: "docker"
   image: "Dockerfile"
