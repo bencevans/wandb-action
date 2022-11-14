@@ -102,27 +102,27 @@ if __name__ == "__main__":
     github_api = Github(github_token)
     github_api_repo = github_api.get_repo(github_repo)
 
-    runs_current = get_run(wandb_api, wandb_path, ref_current)
-    runs_previous = get_run(wandb_api, wandb_path, ref_previous)
+    run_curr = get_run(wandb_api, wandb_path, ref_current)
+    run_prev = get_run(wandb_api, wandb_path, ref_previous)
 
-    if runs_current is None:
+    if run_curr is None:
         print(f"⚠️ No run found for current ref {ref_current}")
         exit(1)
 
-    if runs_previous is None:
+    if run_prev is None:
         print(f"⚠️ No run found for previous ref {ref_previous}")
 
     print(
         "✍️ Written commit comment: ",
         github_api_repo.get_commit(ref_current)
-        .create_comment(format_commit_message(run_current))
+        .create_comment(format_commit_message(run_curr))
         .html_url,
     )
 
-    if run_previous is not None:
+    if run_prev is not None:
         print(
-            "✍️ Written pull request comment: ",
-            github_api_repo.get_issue(run_previous.pull_request.number)
-            .create_issue_comment(format_pr_message(run_previous))
-            .html_url,
+            "TODO: ✍️ Written pull request comment: ",
+            # github_api_repo.get_issue(run_prev.pull_request.number)
+            # .create_issue_comment(format_pr_message(run_prev))
+            # .html_url,
         )
