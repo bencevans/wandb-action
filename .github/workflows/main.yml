@@ -1,4 +1,6 @@
-on: [push]
+on:
+  push:
+  pull_request:
 
 jobs:
   hello_world_job:
@@ -21,6 +23,7 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: wandb
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
           WANDB_PROJECT: ${{ secrets.WANDB_PROJECT }}
           WANDB_ENTITY: ${{ secrets.WANDB_ENTITY }}
